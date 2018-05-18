@@ -96,3 +96,5 @@ export ViewTitleTile from './manage/Tiles/Title/View';
 export ViewTextTile from './manage/Tiles/Text/View';
 export ViewImageTile from './manage/Tiles/Image/View';
 export ViewVideoTile from './manage/Tiles/Video/View';
+
+export HomeView from './theme/HomeView/HomeView';
