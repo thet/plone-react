@@ -92,6 +92,7 @@ lxml==4.1.1
 mailinglogger==3.8.0
 mechanize==0.2.5
 mockup==2.7.2
+mr.developer==1.38
 olefile==0.44
 pathlib==1.0.1
 persistent==4.2.4.2
