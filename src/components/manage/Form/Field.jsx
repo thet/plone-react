@@ -13,6 +13,7 @@ import {
   DatetimeWidget,
   FileWidget,
   PasswordWidget,
+  ReferenceWidget,
   SchemaWidget,
   SelectWidget,
   TextWidget,
@@ -43,6 +44,9 @@ const Field = props => {
         break;
       case 'password':
         Widget = PasswordWidget;
+        break;
+      case 'relation':
+        Widget = ReferenceWidget;
         break;
       default:
         Widget = TextWidget;
