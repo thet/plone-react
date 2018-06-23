@@ -189,21 +189,22 @@ export default class AddonsControlpanel extends Component {
                   </Accordion.Title>
                   <Accordion.Content active={this.state.activeIndex === i}>
                     {item.description}
+                    <div>
+                      <FormattedMessage
+                        id="Installed Version"
+                        defaultMessage="Installed Version"
+                      />
+                      {item.version}
 
-                    <FormattedMessage
-                      id="Installed Version"
-                      defaultMessage="Installed Version"
-                    />
-                    {item.version}
-
-                    <FormattedMessage
-                      id="Update"
-                      defaultMessage="Update"
-                    />
-                    <FormattedMessage
-                      id="Uninstall"
-                      defaultMessage="Uninstall"
-                    />
+                      <FormattedMessage
+                        id="Update"
+                        defaultMessage="Update"
+                      />
+                      <FormattedMessage
+                        id="Uninstall"
+                        defaultMessage="Uninstall"
+                      />
+                    </div>
                   </Accordion.Content>
                 </div>
               ))}
