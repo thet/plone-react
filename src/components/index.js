@@ -53,6 +53,7 @@ export ContentsWorkflowModal from './manage/Contents/ContentsWorkflowModal';
 export ContentsTagsModal from './manage/Contents/ContentsTagsModal';
 export Controlpanel from './manage/Controlpanels/Controlpanel';
 export Controlpanels from './manage/Controlpanels/Controlpanels';
+export AddonsControlpanel from './manage/Controlpanels/AddonsControlpanel';
 export ModerateComments from './manage/Controlpanels/ModerateComments';
 export UsersControlpanel from './manage/Controlpanels/UsersControlpanel';
 export Delete from './manage/Delete/Delete';
