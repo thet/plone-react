@@ -8,6 +8,7 @@ import { reducer as reduxAsyncConnect } from 'redux-connect';
 import { intlReducer } from 'react-intl-redux';
 
 import actions from './actions/actions';
+import addons from './addons/addons';
 import breadcrumbs from './breadcrumbs/breadcrumbs';
 import comments from './comments/comments';
 import content from './content/content';
@@ -43,6 +44,7 @@ const reducers = {
   intl: intlReducer,
   reduxAsyncConnect,
   actions,
+  addons,
   breadcrumbs,
   comments,
   content,

@@ -18,7 +18,7 @@ import {
   intlShape,
 } from 'react-intl';
 
-import { getAddon, listAddons } from '../../../actions';
+import { listAddons } from '../../../actions';
 import { getBaseUrl } from '../../../helpers';
 import { Toolbar } from '../../../components';
 
@@ -64,12 +64,12 @@ const messages = defineMessages({
 @injectIntl
 @connect(
   (state, props) => ({
-    availableAddons: state.addons.available,
-    installedAddons: state.addons.installed,
+    // availableAddons: state.addons.addons,
+    installedAddons: state.addons.addons,
     activeIndex: state.activeIndex,
     pathname: props.location.pathname,
   }),
-  dispatch => bindActionCreators({ getAddon, listAddons }, dispatch),
+  dispatch => bindActionCreators({ listAddons }, dispatch),
 )
 /**
  * AddonsControlpanel class.
@@ -83,15 +83,14 @@ export default class AddonsControlpanel extends Component {
    * @static
    */
   static propTypes = {
-    getAddon: PropTypes.func.isRequired,
     listAddons: PropTypes.func.isRequired,
-    availableAddons: PropTypes.arrayOf(
-      PropTypes.shape({
-        '@id': PropTypes.string,
-        'name': PropTypes.string,
-        'version': PropTypes.string,
-        'description': PropTypes.string,
-      })).isRequired,
+    // availableAddons: PropTypes.arrayOf(
+    //   PropTypes.shape({
+    //     '@id': PropTypes.string,
+    //     'name': PropTypes.string,
+    //     'version': PropTypes.string,
+    //     'description': PropTypes.string,
+    //   })).isRequired,
     installedAddons: PropTypes.arrayOf(
       PropTypes.shape({
         '@id': PropTypes.string,
@@ -130,12 +129,24 @@ export default class AddonsControlpanel extends Component {
   }
 
   /**
+   * Component will mount
+   * @method componentWillMount
+   * @returns {undefined}
+   */
+  componentWillMount() {
+    console.log('in componentWillMount');
+    this.props.listAddons();
+  }
+
+
+  /**
    * Render method.
    * @method render
    * @returns {string} Markup for the component.
    */
   render() {
     console.log('Rendering')
+
     return (
       <div id="page-addons">
         <Helmet title="Addons" />
@@ -160,7 +171,6 @@ export default class AddonsControlpanel extends Component {
               />
             </Segment>
 
-
           <Segment key={`header-installed`} secondary>
             <FormattedMessage
               id="Installed"
@@ -169,55 +179,34 @@ export default class AddonsControlpanel extends Component {
           </Segment>
 
           <Segment key={`body-installed`} attached>
-
             <Accordion>
-              <Accordion.Title active={this.state.activeIndex === 0} index={0} onClick={this.onAccordionClick}>
-                Products.CMFPlacefulWorkflow
-                <Icon name='dropdown' floated='right' />
-              </Accordion.Title>
-              <Accordion.Content active={this.state.activeIndex === 0}>
-              Add the capability to change workflow chains for types in every object. Includes a dependency on core Plone types. 
-              <FormattedMessage
-                id="Installed Version"
-                defaultMessage="Installed Version"
-              />
-              3.4.9
-              <FormattedMessage
-                id="Update"
-                defaultMessage="Update"
-              />
-              <FormattedMessage
-                id="Uninstall"
-                defaultMessage="Uninstall"
-              />
+              {this.props.installedAddons.map((item, i) => (
+                <div>
+                  <Accordion.Title active={this.state.activeIndex === i} index={i} onClick={this.onAccordionClick}>
+                    {item.id}
+                    <Icon name='dropdown' floated='right' />
+                  </Accordion.Title>
+                  <Accordion.Content active={this.state.activeIndex === i}>
+                    {item.description}
 
-              </Accordion.Content>
+                    <FormattedMessage
+                      id="Installed Version"
+                      defaultMessage="Installed Version"
+                    />
+                    {item.version}
+
+                    <FormattedMessage
+                      id="Update"
+                      defaultMessage="Update"
+                    />
+                    <FormattedMessage
+                      id="Uninstall"
+                      defaultMessage="Uninstall"
+                    />
+                  </Accordion.Content>
+                </div>
+              ))}
             </Accordion>
-
-            <Accordion>
-              <Accordion.Title active={this.state.activeIndex === 1} index={1} onClick={this.onAccordionClick}>
-                Products.CMFPlacefulWorkflow
-                <Icon name='dropdown' floated='right' />
-              </Accordion.Title>
-              <Accordion.Content active={this.state.activeIndex === 1}>
-              Add the capability to change workflow chains for types in every object. Includes a dependency on core Plone types. 
-              <FormattedMessage
-                id="Installed Version"
-                defaultMessage="Installed Version"
-              />
-              3.4.9
-              <FormattedMessage
-                id="Update"
-                defaultMessage="Update"
-              />
-              <FormattedMessage
-                id="Uninstall"
-                defaultMessage="Uninstall"
-              />
-
-              </Accordion.Content>
-            </Accordion>
-
           </Segment>
 
           <Segment key={`header-available`} secondary>

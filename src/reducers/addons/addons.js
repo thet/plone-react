@@ -20,6 +20,7 @@ const initialState = {
  * @returns {Object} New state.
  */
 export default function addons(state = initialState, action = {}) {
+  console.log(action.type);
   switch (action.type) {
     case `${LIST_ADDONS}_PENDING`:
       return {
