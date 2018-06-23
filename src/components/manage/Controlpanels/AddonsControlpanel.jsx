@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import { Portal } from 'react-portal';
-import { Accordion, Header, Icon, Segment } from 'semantic-ui-react';
+import { Accordion, Header, Icon, Label, Segment } from 'semantic-ui-react';
 import jwtDecode from 'jwt-decode';
 import {
   FormattedMessage,
@@ -176,6 +176,7 @@ export default class AddonsControlpanel extends Component {
               id="Installed"
               defaultMessage="Installed"
             />:
+            <Label circular>{this.props.installedAddons.length}</Label>
           </Segment>
 
           <Segment key={`body-installed`} attached>
