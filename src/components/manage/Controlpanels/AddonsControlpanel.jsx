@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import { Portal } from 'react-portal';
-import { Accordion, Header, Icon, Label, Segment } from 'semantic-ui-react';
+import { Accordion, Divider, Header, Icon, Label, Segment } from 'semantic-ui-react';
 import jwtDecode from 'jwt-decode';
 import {
   FormattedMessage,
@@ -64,8 +64,7 @@ const messages = defineMessages({
 @injectIntl
 @connect(
   (state, props) => ({
-    // availableAddons: state.addons.addons,
-    installedAddons: state.addons.addons,
+    addons: state.addons.addons,
     activeIndex: state.activeIndex,
     pathname: props.location.pathname,
   }),
@@ -84,19 +83,17 @@ export default class AddonsControlpanel extends Component {
    */
   static propTypes = {
     listAddons: PropTypes.func.isRequired,
-    // availableAddons: PropTypes.arrayOf(
-    //   PropTypes.shape({
-    //     '@id': PropTypes.string,
-    //     'name': PropTypes.string,
-    //     'version': PropTypes.string,
-    //     'description': PropTypes.string,
-    //   })).isRequired,
-    installedAddons: PropTypes.arrayOf(
+    listInstalledAddons: PropTypes.func.isRequired,
+    listAvailableAddons: PropTypes.func.isRequired,
+    addons: PropTypes.arrayOf(
       PropTypes.shape({
         '@id': PropTypes.string,
         'name': PropTypes.string,
         'version': PropTypes.string,
         'description': PropTypes.string,
+        'upgrade_info': PropTypes.shape({
+          'available': PropTypes.boolean
+        })
       })).isRequired,
   };
 
@@ -139,6 +136,18 @@ export default class AddonsControlpanel extends Component {
   }
 
 
+  installedAddons() {
+    return this.props.addons.filter((elem, index, arr) => {
+      return elem.is_installed === true;
+    });
+  }
+
+  availableAddons() {
+    return this.props.addons.filter((elem, index, arr) => {
+      return elem.is_installed === false;
+    });
+  }
+
   /**
    * Render method.
    * @method render
@@ -176,15 +185,16 @@ export default class AddonsControlpanel extends Component {
               id="Installed"
               defaultMessage="Installed"
             />:
-            <Label circular>{this.props.installedAddons.length}</Label>
+            <Label circular>{this.installedAddons().length}</Label>
           </Segment>
 
           <Segment key={`body-installed`} attached>
-            <Accordion>
-              {this.props.installedAddons.map((item, i) => (
+            <Accordion styled>
+              <Divider />
+              {this.installedAddons().map((item, i) => (
                 <div>
                   <Accordion.Title active={this.state.activeIndex === i} index={i} onClick={this.onAccordionClick}>
-                    {item.id}
+                    {item.title}
                     <Icon name='dropdown' floated='right' />
                   </Accordion.Title>
                   <Accordion.Content active={this.state.activeIndex === i}>
@@ -194,18 +204,29 @@ export default class AddonsControlpanel extends Component {
                         id="Installed Version"
                         defaultMessage="Installed Version"
                       />
+
                       {item.version}
 
-                      <FormattedMessage
-                        id="Update"
-                        defaultMessage="Update"
-                      />
-                      <FormattedMessage
-                        id="Uninstall"
-                        defaultMessage="Uninstall"
-                      />
+
+                      {item.upgrade_info['available'] && (
+                        <Link>
+                          <FormattedMessage
+                            id="Update"
+                            defaultMessage="Update"
+                          />
+                        </Link>
+                      )}
+
+                      <Link>
+                        <FormattedMessage
+                          id="Uninstall"
+                          defaultMessage="Uninstall"
+                        />
+                      </Link>
+
                     </div>
                   </Accordion.Content>
+                  <Divider />
                 </div>
               ))}
             </Accordion>
@@ -216,9 +237,40 @@ export default class AddonsControlpanel extends Component {
               id="Available"
               defaultMessage="Available"
             />:
+            <Label circular>{this.availableAddons().length}</Label>
           </Segment>
-          <Segment key={`body-available`} attached>
 
+          <Segment key={`body-installed`} attached>
+            <Accordion styled>
+              <Divider />
+              {this.availableAddons().map((item, i) => (
+                <div>
+                  <Accordion.Title active={this.state.activeIndex === i} index={i} onClick={this.onAccordionClick}>
+                    {item.title}
+                    <Icon name='dropdown' floated='right' />
+                  </Accordion.Title>
+                  <Accordion.Content active={this.state.activeIndex === i}>
+                    {item.description}
+                    <div>
+                      <FormattedMessage
+                        id="Installed Version"
+                        defaultMessage="Installed Version"
+                      />
+
+                      {item.version}
+                      <Link>
+                        <FormattedMessage
+                          id="Install"
+                          defaultMessage="Install"
+                        />
+                      </Link>
+
+                    </div>
+                  </Accordion.Content>
+                  <Divider />
+                </div>
+              ))}
+            </Accordion>
           </Segment>
 
         </Segment.Group>
