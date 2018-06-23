@@ -10,7 +10,7 @@ import { Form, Grid, Label, Dropdown } from 'semantic-ui-react';
 import { compact, concat, fromPairs, map, values, uniqBy } from 'lodash';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import { bindActionCreators } from 'redux';
-
+import ReferenceWidgetItem from './ReferenceWidgetItem';
 import { resetSearchContent, searchContent } from '../../../actions';
 import config from '../../../config';
 
@@ -101,9 +101,17 @@ export default class ReferenceWidget extends Component {
                   key: value['@id'],
                   text: value.title,
                   value: value['@id'],
-                  label: {
-                    content: value['@id'].replace(config.apiPath, ''),
-                  },
+                  // label: {
+                  //   content: value['@id'].replace(config.apiPath, ''),
+                  // },
+                  content: (
+                    <ReferenceWidgetItem
+                      title={value.title}
+                      id={value['@id']}
+                      description={value['@id'].replace(config.apiPath, '')}
+                      is_folderish={value.is_folderish}
+                    />
+                  ),
                   data: value,
                 },
               ]),
@@ -113,16 +121,18 @@ export default class ReferenceWidget extends Component {
                 key: props.value['@id'],
                 text: props.value.title,
                 value: props.value['@id'],
-                label: {
-                  content: props.value['@id'].replace(config.apiPath, ''),
-                },
+                // label: {
+                //   content: props.value['@id'].replace(config.apiPath, ''),
+                // },
+                content: (
+                  <ReferenceWidgetItem
+                    title={props.value.title}
+                    id={props.value['@id']}
+                    description={props.value['@id'].replace(config.apiPath, '')}
+                    is_folderish={props.value.is_folderish}
+                  />
+                ),
                 data: props.value,
-              },
-              novalue: {
-                key: 'novalue',
-                text: 'No value',
-                value: 'novalue',
-                data: null,
               },
             }
         : {},
@@ -162,9 +172,14 @@ export default class ReferenceWidget extends Component {
                 key: value['@id'],
                 text: value.title,
                 value: value['@id'],
-                label: {
-                  content: value['@id'],
-                },
+                content: (
+                  <ReferenceWidgetItem
+                    title={value.title}
+                    id={value['@id']}
+                    description={value['@id'].replace(config.apiPath, '')}
+                    is_folderish={value.is_folderish}
+                  />
+                ),
                 data: value,
               },
             ],
