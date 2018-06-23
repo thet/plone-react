@@ -11,6 +11,7 @@ import { compact, concat, fromPairs, map, values, uniqBy } from 'lodash';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import { bindActionCreators } from 'redux';
 import ReferenceWidgetItem from './ReferenceWidgetItem';
+import ReferenceWidgetItemHeader from './ReferenceWidgetItemHeader';
 import { resetSearchContent, searchContent } from '../../../actions';
 import config from '../../../config';
 
@@ -162,7 +163,10 @@ export default class ReferenceWidget extends Component {
     }
     if (Object.keys(query).length > 0) {
       query.metadata_fields = ['is_folderish', 'getPath'];
-      this.props.searchContent(data.path ? data.id.replace(config.apiPath, '') : '', query);
+      this.props.searchContent(
+        data.path ? data.id.replace(config.apiPath, '') : '',
+        query,
+      );
     } else {
       this.props.resetSearchContent();
     }
@@ -219,6 +223,7 @@ export default class ReferenceWidget extends Component {
       multiple,
       onChange,
     } = this.props;
+    const { selectedFolder } = this.state;
     return (
       <Form.Field
         inline
@@ -242,9 +247,12 @@ export default class ReferenceWidget extends Component {
                 fluid
                 multiple
                 header={
-                  this.state.selectedFolder
-                    ? this.state.selectedFolder.title
-                    : null
+                  <ReferenceWidgetItemHeader
+                    title={selectedFolder ? selectedFolder.title : ''}
+                    path={selectedFolder ? selectedFolder.path : ''}
+                    onSelectFolder={this.onSelectFolder}
+                    id={selectedFolder ? selectedFolder.id : ''}
+                  />
                 }
                 noResultsMessage={this.props.intl.formatMessage(
                   messages.no_results_found,
