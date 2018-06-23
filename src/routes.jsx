@@ -9,6 +9,7 @@ import isMobile from 'ismobilejs';
 
 import {
   Add,
+  AddonsControlpanel,
   App,
   ChangePassword,
   Contents,
@@ -52,6 +53,7 @@ export default () => (
     <Route path="/search" component={Search} />
     <Route path="/change-password" component={ChangePassword} />
     <Route path="/controlpanel" component={Controlpanels} />
+    <Route path="/controlpanel/addons" component={AddonsControlpanel} />
     <Route
       path="/controlpanel/moderate-comments"
       component={ModerateComments}
