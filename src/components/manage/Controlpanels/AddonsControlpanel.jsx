@@ -64,7 +64,8 @@ const messages = defineMessages({
 @injectIntl
 @connect(
   (state, props) => ({
-    items: state.search.items,
+    availableAddons: state.addons.available,
+    installedAddons: state.addons.installed,
     activeIndex: state.activeIndex,
     pathname: props.location.pathname,
   }),
@@ -84,7 +85,14 @@ export default class AddonsControlpanel extends Component {
   static propTypes = {
     getAddon: PropTypes.func.isRequired,
     listAddons: PropTypes.func.isRequired,
-    items: PropTypes.arrayOf(
+    availableAddons: PropTypes.arrayOf(
+      PropTypes.shape({
+        '@id': PropTypes.string,
+        'name': PropTypes.string,
+        'version': PropTypes.string,
+        'description': PropTypes.string,
+      })).isRequired,
+    installedAddons: PropTypes.arrayOf(
       PropTypes.shape({
         '@id': PropTypes.string,
         'name': PropTypes.string,
@@ -120,7 +128,6 @@ export default class AddonsControlpanel extends Component {
 
     this.setState({ activeIndex: newIndex })
   }
-
 
   /**
    * Render method.

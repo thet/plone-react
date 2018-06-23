@@ -25,7 +25,7 @@ export function getAddon(content) {
 }
 
 /**
- * List users function
+ * List addons function
  * @function listAddons
  * @param {string} query Query
  * @returns {Object} List addons action
