@@ -5,7 +5,6 @@ import {
   UPDATE_CONTENT,
   GET_CONTENT,
 } from '../../constants/ActionTypes';
-import config from '../../config';
 
 describe('Content reducer', () => {
   it('should return the initial state', () => {
@@ -60,9 +59,10 @@ describe('Content reducer', () => {
         result: {
           items: [
             {
-              '@id': `${config.apiPath}/home-page`,
+              '@id': '/home-page',
             },
           ],
+          '@id': '/',
         },
       }),
     ).toMatchObject({
@@ -74,10 +74,10 @@ describe('Content reducer', () => {
       data: {
         items: [
           {
-            '@id': `${config.apiPath}/home-page`,
-            url: '/home-page',
+            '@id': '/home-page',
           },
         ],
+        '@id': '/',
       },
     });
   });
@@ -206,9 +206,10 @@ describe('Content reducer', () => {
         result: {
           items: [
             {
-              '@id': `${config.apiPath}/home-page`,
+              '@id': '/home-page',
             },
           ],
+          '@id': '/',
         },
       }),
     ).toMatchObject({
@@ -220,10 +221,10 @@ describe('Content reducer', () => {
       data: {
         items: [
           {
-            '@id': `${config.apiPath}/home-page`,
-            url: '/home-page',
+            '@id': `/home-page`,
           },
         ],
+        '@id': '/',
       },
     });
   });
