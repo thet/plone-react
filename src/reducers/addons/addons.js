@@ -7,10 +7,25 @@ import { LIST_ADDONS } from '../../constants/ActionTypes';
 
 const initialState = {
   error: null,
-  addons: [],
+  installedAddons: [],
+  availableAddons: [],
+  upgradableAddons: [],
   loaded: false,
   loading: false,
 };
+
+
+function addonsSorter(a, b){
+  var titleA = a.title.toUpperCase();
+  var titleB = b.title.toUpperCase();
+  if (titleA < titleB){
+    return -1;
+  }
+  else if (titleA > titleB){
+    return 1;
+  }
+  return 0;
+}
 
 /**
  * Addons reducer.
@@ -20,7 +35,6 @@ const initialState = {
  * @returns {Object} New state.
  */
 export default function addons(state = initialState, action = {}) {
-  console.log(action.type);
   switch (action.type) {
     case `${LIST_ADDONS}_PENDING`:
       return {
@@ -33,7 +47,15 @@ export default function addons(state = initialState, action = {}) {
       return {
         ...state,
         error: null,
-        addons: action.result,
+        installedAddons: action.result.items.filter(elem => {
+            return elem.is_installed === true;
+        }).sort(addonsSorter),
+        availableAddons: action.result.items.filter(elem => {
+            return elem.is_installed === false;
+        }).sort(addonsSorter),
+        upgradableAddons: action.result.items.filter(elem => {
+            return elem.upgrade_info['available'] === true;
+        }).sort(addonsSorter),
         loaded: true,
         loading: false,
       };
@@ -41,7 +63,9 @@ export default function addons(state = initialState, action = {}) {
       return {
         ...state,
         error: action.error,
-        addons: [],
+        installedAddons: [],
+        availableAddons: [],
+        upgradableAddons: [],
         loaded: false,
         loading: false,
       };
