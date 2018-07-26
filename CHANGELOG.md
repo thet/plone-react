@@ -11,6 +11,7 @@
 * Custom tiles support @sneridagh
 * Add full register/password reset views @sneridagh
 * Make the list block types configurable @robgietema
+* Add Album view @davilima6
 
 ### Changes
 

@@ -3,6 +3,7 @@ import {
   FileView,
   ImageView,
   ListingView,
+  AlbumView,
   NewsItemView,
   SummaryView,
   TabularView,
@@ -13,6 +14,7 @@ export const layoutViews = {
   summary_view: SummaryView,
   tabular_view: TabularView,
   listing_view: ListingView,
+  album_view: AlbumView,
 };
 
 // Content Types View Registry
