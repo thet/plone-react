@@ -1,6 +1,17 @@
 # Change Log
 
-## 0.7.0 (unreleased)
+## 0.8.0 (unreleased)
+
+### Added
+
+* Upgrade React to 16.4.2 to fix a server-side vunerability @tisto
+* Add Album view @davilima6
+
+### Changes
+
+* Don't reset total and batching on pending search @robgietema
+
+## 0.7.0 (2018-07-31)
 
 ### Added
 
@@ -11,7 +22,8 @@
 * Custom tiles support @sneridagh
 * Add full register/password reset views @sneridagh
 * Make the list block types configurable @robgietema
-* Add Album view @davilima6
+* Add all missing German translations @tisto
+* Add helper `BodyClass` for appending classes to the `body` tag from View components @sneridagh
 
 ### Changes
 
@@ -26,6 +38,7 @@
 * Fix broken CSS on alignments left/right @sneridagh
 * Tile DE literals translations @sneridagh
 * Pass location as prop to child views in main View component in case we require it in some views @sneridagh
+* Fix computed displayName from add-display-name Babel plugin for connected components @sneridagh
 
 ## 0.6.0 (2018-07-14)
 

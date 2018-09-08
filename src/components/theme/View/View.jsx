@@ -5,7 +5,6 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { Portal } from 'react-portal';
 import { Link } from 'react-router';
@@ -26,7 +25,7 @@ import {
   Workflow,
 } from '../../../components';
 import { listActions, getContent } from '../../../actions';
-import { getBaseUrl } from '../../../helpers';
+import { BodyClass, getBaseUrl } from '../../../helpers';
 
 @injectIntl
 @connect(
@@ -189,6 +188,19 @@ export default class View extends Component {
   getViewByLayout = () => layoutViews[this.props.content.layout] || null;
 
   /**
+   * Cleans the component displayName (specially for connected components)
+   * which have the Connect(componentDisplayName)
+   * @method cleanViewName
+   * @param  {string} dirtyDisplayName The displayName
+   * @returns {string} Clean displayName (no Connect(...)).
+   */
+  cleanViewName = dirtyDisplayName =>
+    dirtyDisplayName
+      .replace('Connect(', '')
+      .replace(')', '')
+      .toLowerCase();
+
+  /**
    * Render method.
    * @method render
    * @returns {string} Markup for the component.
@@ -219,12 +231,12 @@ export default class View extends Component {
 
     return (
       <div id="view">
-        <Helmet
-          bodyAttributes={{
-            class: RenderedView.displayName
-              ? `view-${RenderedView.displayName.toLowerCase()}`
-              : 'view-undefined',
-          }}
+        <BodyClass
+          className={
+            RenderedView.displayName
+              ? `view-${this.cleanViewName(RenderedView.displayName)}`
+              : null
+          }
         />
 
         <RenderedView
