@@ -40,7 +40,7 @@ export const Html = ({ assets, markup, store }) => {
         {head.link.toComponent()}
         {head.script.toComponent()}
 
-        <link rel="shortcut icon" href="/assets/favicon.ico" />
+        <link rel="shortcut icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* styles (will be present only in production with webpack extract text plugin) */}
         {/* {Object.keys(assets.styles).map(style => (
