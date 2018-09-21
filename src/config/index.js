@@ -37,16 +37,16 @@ export const settings = {
 export const widgets = {
   widgetMapping,
   defaultWidget,
-}
+};
 
 export const views = {
   layoutViews,
   contentTypesViews,
   defaultView,
-}
+};
 
 export const tiles = {
   customTiles,
   getDefaultEditTileView,
   messagesTiles,
-}
+};
