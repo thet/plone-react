@@ -42,17 +42,6 @@ export const Html = ({ assets, markup, store }) => {
 
         <link rel="shortcut icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {/* styles (will be present only in production with webpack extract text plugin) */}
-        {/* {Object.keys(assets.styles).map(style => (
-          <link
-            href={assets.styles[style]}
-            key={assets.styles[style]}
-            media="screen, projection"
-            rel="stylesheet"
-            type="text/css"
-            charSet="UTF-8"
-          />
-        ))} */}
         {assets.client.css ? (
           <link rel="stylesheet" href={assets.client.css} />
         ) : null}
@@ -71,13 +60,6 @@ export const Html = ({ assets, markup, store }) => {
           }}
           charSet="UTF-8"
         />
-        {/* {Object.keys(assets.javascript).map(script => (
-          <script
-            src={assets.javascript[script]}
-            key={assets.javascript[script]}
-            charSet="UTF-8"
-          />
-        ))} */}
       </body>
     </html>
   );
