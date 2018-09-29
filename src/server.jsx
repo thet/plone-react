@@ -5,12 +5,7 @@ import express from 'express';
 import { renderToString } from 'react-dom/server';
 import { createMemoryHistory } from 'history';
 import { ReduxAsyncConnect, loadOnServer } from 'redux-connect';
-import {
-  Html,
-  Api,
-  persistAuthToken,
-  generateSitemap,
-} from './helpers';
+import { Html, Api, persistAuthToken, generateSitemap } from './helpers';
 import { parse as parseUrl } from 'url';
 import { keys } from 'lodash';
 import Raven from 'raven';
@@ -103,7 +98,7 @@ server
             res.status(200).send(
               `<!doctype html>
                 ${renderToString(
-                  <Html assets={assets} component={markup} store={store} />,
+                  <Html assets={assets} markup={markup} store={store} />,
                 )}
               `,
             );
